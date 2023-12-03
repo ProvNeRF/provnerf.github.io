@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <br>
+    <!-- Basic Page Needs
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>ProvNeRF</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/footable.standalone.min.css">
+
+    <!-- Favicon
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Google icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-86869673-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Hover effect: https://codepen.io/nxworld/pen/ZYNOBZ -->
+    <style>
+      img {
+          display: block;
+      }
+
+      .column-50 {
+          float: left;
+          width: 50%;
+      }
+      .row-50:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+
+      .floating-teaser {
+          float: left;
+          width: 30%;
+          text-align: center;
+          padding: 15px;
+      }
+      .venue strong {
+          color: #99324b;
+      }
+
+      .benchmark {
+          width: 100%;
+          max-width: 960px;
+          overflow: scroll;
+          overflow-y: hidden;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- Primary Page Layout
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+      <h4 style="text-align:center">ProvNeRF: Modeling per Point Provenance in NeRFs as a Stochastic Process</h4>
+      <p align="center", style="margin-bottom:12px;">
+        <a class="simple" href="https://georgenakayama.github.io/">Kiyohiro Nakayama</a><sup>1</sup>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="simple" href="https://mikacuy.github.io/">Mikaela Angelina Uy</a><sup>1</sup>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="simple" href="https://qq456cvb.github.io/">Yang You</a><sup>1</sup>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="simple" href="http://www.sfu.ca/~keli/">Ke Li</a><sup>2</sup>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="simple" href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a><sup>1</sup>
+      </p>
+
+      <p align="center" style="margin-bottom:20px;">
+        <sup>1</sup>Stanford University
+        <span style="display:inline-block; width: 32px"></span>
+        <sup>3</sup>Simon Fraser University<br>
+      </p>
+
+      <!-- <div class="venue">
+        <p align="center"> International Conference on Computer Vision (ICCV), 2023 </p>
+      </div> -->
+
+      <figure>
+        <img src="images/teaser.jpg" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>(Left)</b> Illustration of per-point provenance. We model the origin or provenance of each point or “from
+        where it was seen.”. Our ProvNeRF takes as input the sparse training cameras (yellow), and outputs the prove-
+        nances for each 3D point modeled as a stochastic process. For 3D points (orange triangle and red circle), the
+        corresponding output provenances are illustrated by the orange the red locations, which depict from where these
+        points were observed.  <b>(Right)</b> Multiple downstream applications enabled by ProvNeRF, namely uncertainty esti-
+        mation, criteria-based viewpoint optimization and sparse view novel view synthesis.
+      </div>
+
+      <br><br>
+      <h5>Qualitative Results</h5>
+      <figure>
+        <img src="images/unc_oner.jpg" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Uncertainty Modeling</b>. The uncertainty and depth error maps are shown
+        with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
+        comparable.
+      </div>
+      <br><br>
+      <figure>
+        <img src="images/view_select.jpg" style="width:95%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Criteria-based Viewpoint Optimization</b> (a) PSNR and Area Size plots with the objective of maximizing the projected area of the target. (b)
+        PSNR and Dot Product plots the objective of maximizing the dot product between the viewing angle and the
+        target object's normal. The dotted lines denote the objective for the initial views. (Right) We show the final
+        view comparison of our provenance-aided viewpoint selection compared to the baselines under the two objectives
+        in scene 3. Notice that our method (in red) is able to arrive at an objective maximizing view while retaining
+        reconstruction quality. On the other hand, both the retrieval and optimization baselines fail to balance between the
+        two.
+      </div>
+      <br><br>
+      <!-- <figure> -->
+        <!-- <img src="videos/part_mixing.gif" style="width:100%"></img> -->
+        <!-- <br> -->
+      <!-- </figure> -->
+      <!-- <div class="caption"> -->
+        <!-- <b>DiffFacto Application:</b> Part mixing. -->
+      <!-- </div> -->
+      <!-- <br><br> -->
+      <div id="teaser" class="container" style="width:100%; margin:0; padding:0">
+        
+        <h5>Abstract</h5>
+        <p align="justify">
+          Neural radiance fields (NeRFs) have gained popularity across various applications. 
+          However, they face challenges in the sparse view setting, lacking sufficient constraints from volume rendering. 
+          Reconstructing and understanding a 3D scene from sparse and unconstrained cameras is a long-standing problem in classical computer vision with diverse applications. 
+          While recent works have explored NeRFs in sparse, unconstrained view scenarios, 
+          their focus has been primarily on enhancing reconstruction and novel view synthesis. 
+          Our approach takes a broader perspective by posing the question: "from where has each point been seen?" 
+          -- which gates how well we can understand and reconstruct it. 
+          In other words, we aim to determine the origin or provenance of each 3D point and its associated information under sparse, unconstrained views. 
+          We introduce ProvNeRF, a model that enriches a traditional NeRF representation by incorporating per-point provenance, modeling likely source locations for each point. 
+          We achieve this by extending implicit maximum likelihood estimation (IMLE) for stochastic processes. Notably, our method is compatible with any pre-trained NeRF model and the associated training camera poses. 
+          We demonstrate that modeling per-point provenance offers several advantages, including uncertainty estimation, criteria-based view selection, and improved novel view synthesis, compared to state-of-the-art methods.
+          <br>
+          <br>
+        </p>
+      </div>
+
+      <!-- <div id="teaser" class="container" style="width:100%; margin:0; padding:0"> -->
+        <!-- <h5>Video</h5> -->
+        <!-- <p align="center"><iframe width="75%" height="450" -->
+        <!-- src="https://www.youtube.com/embed/gwlqiJP5izI"> -->
+        <!-- </iframe></p> -->
+      <!-- </div> -->
+
+
+    <div class="section">
+        <h5>Materials</h5>
+        <div class="container" style="width:95%">
+          <!-- Icon row -->
+          <div class="row">
+            <div class="two columns">
+              <a href=""><img style="border: 1px solid #ddd; border-radius: 4px; padding: 2px; width: 108px;" src="images/paper.jpg"></a>
+            </div>
+          </div>
+          <!-- Link row -->
+          <div class="row">
+            <div class="two columns">
+              <a href="">Paper</a>
+            </div>
+          </div>
+
+          <div class="row">
+              <br>
+              <a href="">Code</a>
+              <!-- <p>Code to be released soon!</p> -->
+          </div>
+
+        </div>
+      </div>
+
+  <br>
+
+  <!-- <div id="teaser" class="container" style="width:100%; margin:0; padding:0"> -->
+    
+    <!-- <h5>Qualitative Results</h5> -->
+    <!-- <center> -->
+      <!-- <img src="images/unc_oner.jpg" style="width:90%"></img> -->
+        <!-- <div class="caption" > -->
+          <!-- <p align="justify"> -->
+            <!-- <b>Generated Shapes with Controlled Variation:</b>  -->
+            <!-- <u>Left:</u> Re-sampling a selected part style while keeping the rest fixed.  -->
+            <!-- <u>Middle:</u> Fixing a selected part while re-sampling the rest.  -->
+            <!-- <u>Right:</u> Generating multiple part configurations for a given set of part styles. Gray refers to the fixed part while colored parts are being modified. -->
+          <!-- </p> -->
+        <!-- </div> -->
+        <!-- <br> -->
+
+      <!-- <img src="images/main2.jpg" style="width:90%"></img> -->
+        <!-- <div class="caption" > -->
+          <!-- <p align="justify"> -->
+            <!-- <b>Applications:</b>    -->
+            <!-- <u>Left:</u> Part Style Mixing. The colored parts from the left are selected and mixed to provide the shapes on the right. -->
+            <!-- <u>Right:</u> Part Interpolation. We interpolate the chair backs (red) in the first 2 rows and the lamp poles (orange) in the last 2 rows (indicated by the hand icons). -->
+          <!-- </p> -->
+        <!-- </div> -->
+        <!-- <br> -->
+
+      <!-- <img src="images/diff_step.jpg" style="width:95%"></img> -->
+        <!-- <div class="caption" > -->
+          <!-- <p align="justify"> -->
+            <!-- <u>Left:</u> Visualization of the forward diffusion process with our generalized forward kernel. Compared to the forward diffusion of the vanilla diffusion (bottom row, taken from <a href="https://alexzhou907.github.io/pvd">PVD</a>) that drifts all points uniformly towards the unit Gaussian, our generalized forward kernel diffuses points towards different Gaussains based on the part configurations.  -->
+            <!-- <u>Right:</u> Examples of lamp reconstruction with our generalized forward kernel <b>(With Fwk.)</b> versus without the generalized kernel formulation <b>(Without Fwk.)</b>. Heat maps showing relative errors in the reconstruction lamps. Red indicates larger differences.  -->
+          <!-- </p> -->
+        <!-- </div> -->
+        <!-- <br> -->
+
+        
+
+    <!-- </center> -->
+  <!-- </div> -->
+
+		<!-- -->
+	<!-- <div class="section">
+          <h5>Citation</h5> 
+  <pre style="margin:0"><code>@inproceedings{nakayama2023provnerf,
+      title={ProvNeRF: Modeling per Point Provenance in NeRFs as a Stochastic Process}, 
+      author={Kiyohiro Nakayama and Mikaela Angelina Uy and Yang You and Ke Li and Leonidas Guibas},
+      year={2023},
+      booktitle = {Arxiv},
+}</code></pre>    			 -->
+		</div>
+		
+        <!-- -->
+        <br> 
+        
+  <!-- <div class="section">
+      <h5>Acknowledgements</h5>            
+      <p>
+        This work is supported by ARL grant W911NF-21-2-0104, a Vannevar Bush Faculty Fellowship, the Natural Science Foundation of China (Project No. 62220106003), Tsinghua-Tencent Joint Laboratory for Internet Innovation Technology, and the Natural Sciences and Engineering Research Council of Canada. We very much appreciate Congyue Deng for her helpful discussion at the early stage of this project. We are also grateful for the advice and help from Colton Stearns and Davis Rempe.
+			</p>
+  </div> -->
+  </div>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/footable.min.js"></script>
+
+    <script type="text/javascript">
+      jQuery(function($){
+          $('.table').footable();
+      });
+    </script>
+
+    <!-- End Document
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  </body>
+</html>

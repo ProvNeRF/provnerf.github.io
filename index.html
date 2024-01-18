@@ -40,6 +40,10 @@
       ga('send', 'pageview');
     </script>
 
+    <!-- Slider -->
+    <link rel="stylesheet" href="css/dics.css">
+    <script src="js/dics.js"></script>
+
     <!-- Hover effect: https://codepen.io/nxworld/pen/ZYNOBZ -->
     <style>
       img {
@@ -84,7 +88,7 @@
       <p align="center", style="margin-bottom:12px;">
         <a class="simple" href="https://georgenakayama.github.io/">Kiyohiro Nakayama</a><sup>1</sup>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="simple" href="https://mikacuy.github.io/">Mikaela Angelina Uy</a><sup>1</sup>
+        <a class="simple" href="https://mikacuy.github.io/">Mikaela Angelina Uy</a><sup>1, 3</sup>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a class="simple" href="https://qq456cvb.github.io/">Yang You</a><sup>1</sup>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -96,7 +100,9 @@
       <p align="center" style="margin-bottom:20px;">
         <sup>1</sup>Stanford University
         <span style="display:inline-block; width: 32px"></span>
-        <sup>2</sup>Simon Fraser University<br>
+        <sup>2</sup>Simon Fraser University
+        <span style="display:inline-block; width: 32px"></span>
+        <sup>3</sup>Google<br>
       </p>
 
       <!-- <div class="venue">
@@ -114,42 +120,10 @@
         corresponding output provenances are illustrated by the orange the red locations, which depict from where these
         points were observed.  <b>(Right)</b> Multiple downstream applications enabled by ProvNeRF, namely uncertainty esti-
         mation, criteria-based viewpoint optimization and sparse view novel view synthesis.
+        <br>
+          <br>
       </div>
 
-      <br><br>
-      <h5>Qualitative Results</h5>
-      <figure>
-        <img src="images/unc_oner.jpg" style="width:100%"></img>
-        <!-- <br> -->
-      </figure>
-      <div class="caption">
-        <b>Uncertainty Modeling</b>. The uncertainty and depth error maps are shown
-        with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
-        comparable.
-      </div>
-      <br><br>
-      <figure>
-        <img src="images/view_select.jpg" style="width:95%"></img>
-        <!-- <br> -->
-      </figure>
-      <div class="caption">
-        <b>Criteria-based Viewpoint Optimization</b> (a) PSNR and Area Size plots with the objective of maximizing the projected area of the target. (b)
-        PSNR and Dot Product plots the objective of maximizing the dot product between the viewing angle and the
-        target object's normal. The dotted lines denote the objective for the initial views. (Right) We show the final
-        view comparison of our provenance-aided viewpoint selection compared to the baselines under the two objectives
-        in scene 3. Notice that our method (in red) is able to arrive at an objective maximizing view while retaining
-        reconstruction quality. On the other hand, both the retrieval and optimization baselines fail to balance between the
-        two.
-      </div>
-      <br><br>
-      <!-- <figure> -->
-        <!-- <img src="videos/part_mixing.gif" style="width:100%"></img> -->
-        <!-- <br> -->
-      <!-- </figure> -->
-      <!-- <div class="caption"> -->
-        <!-- <b>DiffFacto Application:</b> Part mixing. -->
-      <!-- </div> -->
-      <!-- <br><br> -->
       <div id="teaser" class="container" style="width:100%; margin:0; padding:0">
         
         <h5>Abstract</h5>
@@ -170,6 +144,100 @@
         </p>
       </div>
 
+      <br><br>
+      <h5>Application 1: <b>Uncertainty Modeling</b></h5>
+      <p align="justify">
+        The uncertainty and depth error maps are shown
+        with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
+        comparable.
+      </p>
+      <h6><b>Scannet 710</b></h6>
+      <div class="b-dics">
+        <img src="images/710_unc/provnerf.png", alt="Ours">
+        <img src="images/710_unc/bayes.png", alt="Bayes' Rays">
+      </div>
+      <figure>
+        <img src="images/710_unc/all.png" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <br><br>
+      <h6><b>Scannet 758</b></h6>
+      <div class="b-dics">
+        <img src="images/758_unc/provnerf.png", alt="Ours">
+        <img src="images/758_unc/bayes.png", alt="Bayes' Rays">
+      </div>
+      <figure>
+        <img src="images/758_unc/all.png" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <!-- <div class="caption">
+        <b>Uncertainty Modeling</b>. The uncertainty and depth error maps are shown
+        with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
+        comparable.
+      </div> -->
+      <br><br>
+      <h5>Application 2: <b>Criteria-based Viewpoint Optimization</b></h5>
+      <figure>
+        <img src="images/close_up/all.png" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Close-up View Optimization</b> We show the optimized
+        view comparison of our provenance-aided viewpoint selection compared to the baselines under the close-up objective. 
+        Notice that our method (in red) both maximizes the plush's area size while obtaining a high quality reconstruction. On the other hand, both the retrieval and optimization baselines fail to balance between the
+        two.
+      </div>
+      <figure>
+        <img src="images/close_up/graph.png" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Close-up View Optimization</b> Graph showning PSNR and Area Size plots with the objective of maximizing the projected area of the target. Notice that our provenance-aided optimization obtains the best balance between area size and PSNR.
+      </div>
+      <br><br>
+      <figure>
+        <img src="images/normal/all.png" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Normal Vector Alignment View Optimization</b> We show the optimized
+        view comparison of our provenance-aided viewpoint selection compared to the baselines under the normal vector view alignment objective. 
+        Notice that our method is able to obtain a bird-eye view of the book while keeping the book within its viewpoint. On the other hand, the retrieved view fails to align with the normal of the book while the optimized view simply does not see the book at all.
+      </div>
+      <figure>
+        <img src="images/normal/graph.png" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Normal Vector Alignment View Optimization</b> Graph showing PSNR and Dot product with the normal vector with the objective of normal vector alignment. Notice that our provenance-aided optimization obtains the best balance between dot product and PSNR.
+      </div>
+      <br><br>
+      <h5>Application 3: <b>Novel View Synthesis</b></h5>
+      <div class="b-dics">
+        <img src="images/reg/provnerf.png", alt="Ours">
+        <img src="images/reg/scade.png", alt="SCADE">
+      </div>
+      <div class="caption">
+        <b>Qualitative Result on Scannet</b> Notice we are able to remove clouds and small floaters from the original SCADE model.
+      </div>
+      <br><br>
+      <div class="b-dics">
+        <img src="images/reg_tnt/provnerf.png", alt="Ours">
+        <img src="images/reg_tnt/scade.png", alt="SCADE">
+      </div>
+      <div class="caption">
+        <b>Qualitative Result on Tanks and Temple</b>
+      </div>
+      <!-- <figure> -->
+        <!-- <img src="videos/part_mixing.gif" style="width:100%"></img> -->
+        <!-- <br> -->
+      <!-- </figure> -->
+      <!-- <div class="caption"> -->
+        <!-- <b>DiffFacto Application:</b> Part mixing. -->
+      <!-- </div> -->
+      <!-- <br><br> -->
+      
+
       <!-- <div id="teaser" class="container" style="width:100%; margin:0; padding:0"> -->
         <!-- <h5>Video</h5> -->
         <!-- <p align="center"><iframe width="75%" height="450" -->
@@ -184,13 +252,13 @@
           <!-- Icon row -->
           <div class="row">
             <div class="two columns">
-              <a href=""><img style="border: 1px solid #ddd; border-radius: 4px; padding: 2px; width: 108px;" src="images/paper.jpg"></a>
+              <a href="https://arxiv.org/pdf/2401.08140.pdf"><img style="border: 1px solid #ddd; border-radius: 4px; padding: 2px; width: 108px;" src="images/paper.jpg"></a>
             </div>
           </div>
           <!-- Link row -->
           <div class="row">
             <div class="two columns">
-              <a href="">Paper</a>
+              <a href="https://arxiv.org/abs/2401.08140">Paper</a>
             </div>
           </div>
 
@@ -274,6 +342,45 @@
           $('.table').footable();
       });
     </script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', domReady);
+
+      function domReady() {
+          new Dics({
+              container: document.querySelectorAll('.b-dics')[0],
+              textPosition: 'right',
+              linesOrientation: "vertical",
+              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
+              arrayColorText: ["#000000", "#FFFFFF"],
+              linesColor: "rgb(0,0,0)"
+          });
+          new Dics({
+              container: document.querySelectorAll('.b-dics')[1],
+              textPosition: 'right',
+              linesOrientation: "vertical",
+              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
+              arrayColorText: ["#000000", "#FFFFFF"],
+              linesColor: "rgb(0,0,0)"
+          });
+          new Dics({
+              container: document.querySelectorAll('.b-dics')[2],
+              textPosition: 'right',
+              linesOrientation: "vertical",
+              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
+              arrayColorText: ["#000000", "#FFFFFF"],
+              linesColor: "rgb(0,0,0)"
+          });
+          new Dics({
+              container: document.querySelectorAll('.b-dics')[3],
+              textPosition: 'right',
+              linesOrientation: "vertical",
+              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
+              arrayColorText: ["#000000", "#FFFFFF"],
+              linesColor: "rgb(0,0,0)"
+          });
+      }
+  </script>
 
     <!-- End Document
          –––––––––––––––––––––––––––––––––––––––––––––––––– -->

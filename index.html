@@ -244,51 +244,60 @@
       <iframe width="560" height="315" src="https://www.youtube.com/embed/Z5A01Dywi24?si=XR63DbKouxCK2Qx9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
-      <!-- <br><br>
+      <br><br>
       <h5>Application 1: <b>Uncertainty Modeling</b></h5>
-      <p align="justify">
-        The uncertainty and depth error maps are shown
-        with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
-        comparable.
-      </p>
-      <div style="display: flex; gap: 20px;">
-        <div style="flex: 1;">
-            <h6><b>Scannet 710</b></h6>
-            <div class="b-dics">
-                <img src="images/710_unc/provnerf.png" alt="Ours">
-                <img src="images/710_unc/bayes.png" alt="Bayes' Rays">
-            </div>
-            <figure>
-                <img src="images/710_unc/all.png" style="width:100%">
-            </figure>
-        </div>
-    
-        <div style="flex: 1;">
-            <h6><b>Scannet 758</b></h6>
-            <div class="b-dics">
-                <img src="images/758_unc/provnerf.png" alt="Ours">
-                <img src="images/758_unc/bayes.png" alt="Bayes' Rays">
-            </div>
-            <figure>
-                <img src="images/758_unc/all.png" style="width:100%">
-            </figure>
-        </div>
-    </div> -->
-      <!-- <div class="caption">
+      <figure>
+        <img src="images/triang.png" style="width:100%">
+      </figure>
+      <div class="caption">
+        Uncertainty of the capturing process strongly depends on the angles between observations. 
+        For example, a larger camera baseline would lead to small regions of uncertainty. 
+        a small baseline leads to large uncertainty region. 
+        We leverage literature on multi-view geometry to quantify this intuition as the posterior probability of each point given the provenance predictions.  
+      </div>
+      <br><br>
+      <h6><b>Scannet 710</b></h6>
+      <div class="b-dics">
+          <img src="images/710_unc/provnerf.png" alt="Ours">
+          <img src="images/710_unc/bayes.png" alt="Bayes' Rays">
+      </div>
+      <figure>
+          <img src="images/710_unc/all.png" style="width:100%">
+      </figure>
+
+      <h6><b>Scannet 758</b></h6>
+      <div class="b-dics">
+          <img src="images/758_unc/provnerf.png" alt="Ours">
+          <img src="images/758_unc/bayes.png" alt="Bayes' Rays">
+      </div>
+      <figure>
+          <img src="images/758_unc/all.png" style="width:100%">
+      </figure>
+      <div class="caption">
         <b>Uncertainty Modeling</b>. The uncertainty and depth error maps are shown
         with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
         comparable.
-      </div> -->
-      <!-- <br><br>
-      <h5>Application 2: <b>Novel View Synthesis</b></h5>
-      <div class="caption">
-        Notice we are able to remove clouds and small floaters from the original SCADE model.
       </div>
+      <br><br>
+      <h5>Application 2: <b>Novel View Synthesis</b></h5>
+      <video width="100%" autoplay muted controls>
+        <source src="videos/reg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="caption">
+        ProvNeRF also helps with improving novel view synthesis by removing additional floaters. 
+        Given a pretrained NeRF with floaters, we can query ProvNeRF on points along a training ray to obtain their provenance samples. 
+        By matching the transmittance rendered from the provenance rays with that from the training ray, floaters in between can be removed. We formulate this as an additional regularizer on top of NeRF training. 
+
+      </div>
+      <br><br>
       <div class="b-dics">
           <img class="uniform-height" src="images/reg/ours.png" alt="Ours">
           <img class="uniform-height" src="images/reg/scade.png" alt="SCADE">
-      </div> -->
-
+      </div>
+      <div class="caption">
+        Notice we are able to remove clouds and small floaters from the original SCADE model.
+      </div>
       <!-- <h5>Application 2: <b>Criteria-based Viewpoint Optimization</b></h5> -->
       <!-- <figure> -->
         <!-- <img src="images/close_up/all.png" style="width:100%"></img> -->

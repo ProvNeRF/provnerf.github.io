@@ -22,7 +22,9 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/footable.standalone.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
     <!-- Favicon
          –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -46,9 +48,18 @@
 
     <!-- Hover effect: https://codepen.io/nxworld/pen/ZYNOBZ -->
     <style>
-      img {
-          display: block;
-      }
+
+    .uniform-height {
+        height: 315px; /* Set the height for all images */
+        width: auto; /* Preserve the aspect ratio */
+        object-fit: cover; /* Fill the specified height while keeping the aspect ratio */
+        display: block; /* Avoid inline spacing issues */
+    }
+
+    img {
+      margin: 0;
+      padding: 0;
+    }
 
       .column-50 {
           float: left;
@@ -70,13 +81,65 @@
           color: #99324b;
       }
 
+
+
       .benchmark {
           width: 100%;
           max-width: 960px;
           overflow: scroll;
           overflow-y: hidden;
       }
+      
+      @media (min-width: 550px) {
+      .column.has-text-centered {
+        margin-left: 0 !important;
+      }
+    }
 
+    .publication-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .link-block {
+      display: inline-block;
+    }
+
+    .external-link {
+      display: flex;
+      align-items: center;
+      background-color: #363636;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: none;
+    }
+
+    iframe {
+    width: 560px;
+    height: 315px;
+    margin: 0 auto;
+    display:block;
+    background-color: #777;
+}
+
+    .external-link .icon {
+      margin-right: 6px;
+    }
+
+    .external-link .icon i {
+      font-size: 16px;
+    }
+
+    .external-link:hover {
+      background-color: #4a4a4a;
+    }
     </style>
   </head>
   <body>
@@ -84,7 +147,7 @@
     <!-- Primary Page Layout
          –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <div class="container">
-      <h4 style="text-align:center">ProvNeRF: Modeling per Point Provenance in NeRFs as a Stochastic Process</h4>
+      <h4 style="text-align:center">ProvNeRF: Modeling per Point Provenance in NeRFs as a Stochastic Field</h4>
       <p align="center", style="margin-bottom:12px;">
         <a class="simple" href="https://georgenakayama.github.io/">Kiyohiro Nakayama</a><sup>1</sup>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -94,7 +157,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a class="simple" href="http://www.sfu.ca/~keli/">Ke Li</a><sup>2</sup>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="simple" href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a><sup>1</sup>
+        <a class="simple" href="https://geometry.stanford.edu/member/guibas/">Leonidas J. Guibas</a><sup>1</sup>
       </p>
 
       <p align="center" style="margin-bottom:20px;">
@@ -102,8 +165,33 @@
         <span style="display:inline-block; width: 32px"></span>
         <sup>2</sup>Simon Fraser University
         <span style="display:inline-block; width: 32px"></span>
-        <sup>3</sup>Google<br>
+        <sup>3</sup>NVIDIA<br>
       </p>
+
+      <!-- Additional Links Section -->
+    <div class="column has-text-centered">
+      <div class="publication-links">
+        <!-- arXiv Link -->
+        <span class="link-block">
+          <a href="https://arxiv.org/abs/2401.08140" class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <i class="ai ai-arxiv"></i>
+            </span>
+            <span>arXiv</span>
+          </a>
+        </span>
+        <!-- Code Link -->
+        <span class="link-block">
+          <a href="" class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>Code</span>
+          </a>
+        </span>
+
+      </div>
+    </div>
 
       <!-- <div class="venue">
         <p align="center"> International Conference on Computer Vision (ICCV), 2023 </p>
@@ -114,110 +202,92 @@
         <!-- <br> -->
       </figure>
       <div class="caption">
-        <b>(Left)</b> Illustration of per-point provenance. We model the origin or provenance of each point or “from
-        where it was seen.”. Our ProvNeRF takes as input the sparse training cameras (yellow), and outputs the prove-
-        nances for each 3D point modeled as a stochastic process. For 3D points (orange triangle and red circle), the
-        corresponding output provenances are illustrated by the orange the red locations, which depict from where these
-        points were observed.  <b>(Right)</b> Multiple downstream applications enabled by ProvNeRF, namely uncertainty esti-
-        mation, criteria-based viewpoint optimization and sparse view novel view synthesis.
+        <b>(Left)</b> ProvNeRF models a provenance field that outputs <em>provenances</em> for each 3D point as likely samples (arrows). 
+        For 3D points (brown triangle and blue circle), the corresponding provenances (illustrated by the arrows), are locations that likely observe them. 
+        <b>(Right)</b> ProvNeRF enables better novel view synthesis and estimating the uncertainty of the capturing process 
+        because it models the locations of likely observations that is critical for NeRF's optimization.
         <br>
           <br>
       </div>
+      
 
       <div id="teaser" class="container" style="width:100%; margin:0; padding:0">
         
         <h5>Abstract</h5>
         <p align="justify">
-          Neural radiance fields (NeRFs) have gained popularity across various applications. 
-          However, they face challenges in the sparse view setting, lacking sufficient constraints from volume rendering. 
-          Reconstructing and understanding a 3D scene from sparse and unconstrained cameras is a long-standing problem in classical computer vision with diverse applications. 
-          While recent works have explored NeRFs in sparse, unconstrained view scenarios, 
-          their focus has been primarily on enhancing reconstruction and novel view synthesis. 
-          Our approach takes a broader perspective by posing the question: "from where has each point been seen?" 
-          -- which gates how well we can understand and reconstruct it. 
-          In other words, we aim to determine the origin or provenance of each 3D point and its associated information under sparse, unconstrained views. 
-          We introduce ProvNeRF, a model that enriches a traditional NeRF representation by incorporating per-point provenance, modeling likely source locations for each point. 
-          We achieve this by extending implicit maximum likelihood estimation (IMLE) for stochastic processes. Notably, our method is compatible with any pre-trained NeRF model and the associated training camera poses. 
-          We demonstrate that modeling per-point provenance offers several advantages, including uncertainty estimation, criteria-based view selection, and improved novel view synthesis, compared to state-of-the-art methods.
+          Neural radiance fields (NeRFs) have gained popularity with multiple works showing promising results across various applications. 
+          However, to the best of our knowledge, existing works do not explicitly model the distribution of training camera poses, 
+          or consequently the triangulation quality, a key factor affecting reconstruction quality dating back to classical vision literature.
+          We close this gap with ProvNeRF, an approach that models the <b>provenance for each point</b> -- i.e., the locations where it is likely visible -- 
+          of NeRFs as a stochastic field. We achieve this by extending implicit maximum likelihood estimation (IMLE) to functional space with an optimizable objective. 
+          We show that modeling per-point provenance during the NeRF optimization enriches the model with information 
+          on triangulation leading to improvements in novel view synthesis and uncertainty estimation under the challenging sparse, 
+          unconstrained view setting against competitive baselines. 
           <br>
           <br>
         </p>
       </div>
-
-    <div class="section">
-        <h5>Materials</h5>
-        <div class="container" style="width:95%">
-          <!-- Icon row -->
-          <div class="row">
-            <div class="two columns">
-              <a href="https://arxiv.org/pdf/2401.08140.pdf"><img style="border: 1px solid #ddd; border-radius: 4px; padding: 2px; width: 108px;" src="images/paper.jpg"></a>
-            </div>
-          </div>
-          <!-- Link row -->
-          <div class="row">
-            <div class="two columns">
-              <a href="https://arxiv.org/abs/2401.08140">Paper</a>
-            </div>
-          </div>
-
-          <div class="row">
-              <br>
-              <a href="">Code</a>
-              <!-- <p>Code to be released soon!</p> -->
-          </div>
-
-        </div>
-    </div>
-
-
       <br><br>
+      <h5>Method Overview</h5>
+      <figure>
+        <img src="images/pipeline.jpg" style="width:100%"></img>
+        <!-- <br> -->
+      </figure>
+      <div class="caption">
+        <b>Training pipeline for ProvNeRF</b> For each point <b>x</b> seen from provenance, 
+        with direction d at distance t, we first sample K latent random functions from distribution. 
+        The learned transformation <b>H</b> transforms each latent function sample to a provenance sample. 
+        <br>
+          <br>
+      </div>
+      <h5>Supplementary Video</h5>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Z5A01Dywi24?si=XR63DbKouxCK2Qx9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+      <!-- <br><br>
       <h5>Application 1: <b>Uncertainty Modeling</b></h5>
       <p align="justify">
         The uncertainty and depth error maps are shown
         with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
         comparable.
       </p>
-      <h6><b>Scannet 710</b></h6>
-      <div class="b-dics">
-        <img src="images/710_unc/provnerf.png", alt="Ours">
-        <img src="images/710_unc/bayes.png", alt="Bayes' Rays">
-      </div>
-      <figure>
-        <img src="images/710_unc/all.png" style="width:100%"></img>
-        <!-- <br> -->
-      </figure>
-      <br><br>
-      <h6><b>Scannet 758</b></h6>
-      <div class="b-dics">
-        <img src="images/758_unc/provnerf.png", alt="Ours">
-        <img src="images/758_unc/bayes.png", alt="Bayes' Rays">
-      </div>
-      <figure>
-        <img src="images/758_unc/all.png" style="width:100%"></img>
-        <!-- <br> -->
-      </figure>
+      <div style="display: flex; gap: 20px;">
+        <div style="flex: 1;">
+            <h6><b>Scannet 710</b></h6>
+            <div class="b-dics">
+                <img src="images/710_unc/provnerf.png" alt="Ours">
+                <img src="images/710_unc/bayes.png" alt="Bayes' Rays">
+            </div>
+            <figure>
+                <img src="images/710_unc/all.png" style="width:100%">
+            </figure>
+        </div>
+    
+        <div style="flex: 1;">
+            <h6><b>Scannet 758</b></h6>
+            <div class="b-dics">
+                <img src="images/758_unc/provnerf.png" alt="Ours">
+                <img src="images/758_unc/bayes.png" alt="Bayes' Rays">
+            </div>
+            <figure>
+                <img src="images/758_unc/all.png" style="width:100%">
+            </figure>
+        </div>
+    </div> -->
       <!-- <div class="caption">
         <b>Uncertainty Modeling</b>. The uncertainty and depth error maps are shown
         with color bars specified. Uncertainty values and depth errors are normalized per test image for the result to be
         comparable.
       </div> -->
-      <br><br>
+      <!-- <br><br>
       <h5>Application 2: <b>Novel View Synthesis</b></h5>
-      <div class="b-dics">
-        <img src="images/reg/provnerf.png", alt="Ours">
-        <img src="images/reg/scade.png", alt="SCADE">
-      </div>
       <div class="caption">
-        <b>Qualitative Result on Scannet</b> Notice we are able to remove clouds and small floaters from the original SCADE model.
+        Notice we are able to remove clouds and small floaters from the original SCADE model.
       </div>
-      <br><br>
       <div class="b-dics">
-        <img src="images/7_scade.jpg", alt="Ours">
-        <img src="images/7_ours.jpg", alt="SCADE">
-      </div>
-      <div class="caption">
-        <b>Qualitative Result on Tanks and Temple</b>
-      </div>
+          <img class="uniform-height" src="images/reg/ours.png" alt="Ours">
+          <img class="uniform-height" src="images/reg/scade.png" alt="SCADE">
+      </div> -->
 
       <!-- <h5>Application 2: <b>Criteria-based Viewpoint Optimization</b></h5> -->
       <!-- <figure> -->
@@ -344,42 +414,22 @@
     </script>
     <script>
 
-      document.addEventListener('DOMContentLoaded', domReady);
+    document.addEventListener('DOMContentLoaded', domReady);
 
-      function domReady() {
-          new Dics({
-              container: document.querySelectorAll('.b-dics')[0],
-              textPosition: 'right',
-              linesOrientation: "vertical",
-              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
-              arrayColorText: ["#000000", "#FFFFFF"],
-              linesColor: "rgb(0,0,0)"
-          });
-          new Dics({
-              container: document.querySelectorAll('.b-dics')[1],
-              textPosition: 'right',
-              linesOrientation: "vertical",
-              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
-              arrayColorText: ["#000000", "#FFFFFF"],
-              linesColor: "rgb(0,0,0)"
-          });
-          new Dics({
-              container: document.querySelectorAll('.b-dics')[2],
-              textPosition: 'right',
-              linesOrientation: "vertical",
-              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
-              arrayColorText: ["#000000", "#FFFFFF"],
-              linesColor: "rgb(0,0,0)"
-          });
-          new Dics({
-              container: document.querySelectorAll('.b-dics')[3],
-              textPosition: 'right',
-              linesOrientation: "vertical",
-              arrayBackgroundColorText: ["#FFFFFF", "#000000"],
-              arrayColorText: ["#000000", "#FFFFFF"],
-              linesColor: "rgb(0,0,0)"
-          });
-      }
+    function domReady() {
+        const bDicsElements = document.querySelectorAll('.b-dics');
+
+        bDicsElements.forEach((bDicsContainer) => {
+            new Dics({
+                container: bDicsContainer, // Pass each element directly
+                textPosition: 'right',
+                linesOrientation: "vertical",
+                arrayBackgroundColorText: ["#FFFFFF", "#000000"],
+                arrayColorText: ["#000000", "#FFFFFF"],
+                linesColor: "rgb(0,0,0)"
+            });
+        });
+    }
   </script>
 
     <!-- End Document
